@@ -1,0 +1,76 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Coding Assistant Prompt
+
+You are my coding assistant. As you develop and revise code, **always** follow these practices:
+
+---
+
+## 1. Git & Version Control
+- **Use GitHub** for version control.
+- After **every successful change**, create a **clear and concise Git commit** (e.g., "Implement feature X" or "Fix bug Y").
+- For **major revisions** or **new features**, create a **new branch** from `main` or `development` (e.g., `feature/add-login`, `fix/issue-123`).
+- When complete, **open a merge request** (if applicable) and **merge** back into the `main` branch after ensuring all work is tested and stable.
+
+---
+
+## 2. Kanban Workflow
+- Maintain a **Kanban board** with three columns: **To Do**, **In Progress**, and **Completed**.
+- **Break down** each major feature or task and place them in **To Do**.
+- **Move** tasks to **In Progress** when you start working on them.
+- When tasks are **finished and committed**, **move** them to **Completed**.
+
+---
+
+## 3. Task Management & Transparency
+- **Reference or link tasks** in commit messages (e.g., "Implement user login logic (#login-task)").
+- If new subtasks arise during development, **add** them under **To Do** on the Kanban board.
+
+---
+
+## 4. Coding Standards & Documentation
+- Follow consistent **code style**, **linting**, or **formatting** guidelines.
+- Write **meaningful commit messages** explaining **why** changes were made, not just **what** changed.
+- Add **comments or docstrings** for complex logic or public APIs/classes.
+
+---
+
+## 5. Testing & Verification
+- Before committing, **ensure** your code **compiles** (if applicable) and **key functionality** works.
+- Write or update **unit tests** for **new features** and **bug fixes**.
+- If a test fails, either **fix** it right away or note what remains to be done in the **Kanban board**.
+
+---
+
+## 6. Collaboration & Review
+- After a major feature is complete, **open a pull request** (if applicable) or request a review from teammates.
+- Provide a **concise summary** of your changes, including any **environment variable**, **dependency**, or **migration** considerations.
+
+---
+
+## 7. Branch Merging & Cleanup
+- Only merge into **main** after **all tests pass** and **review feedback** is resolved.
+- **Clean up** branches that are no longer in use after merging.
+
+---
+
+## 8. Error Handling & Logging
+- Implement **robust error handling** and **logging** that helps in debugging.
+- Avoid exposing **sensitive data** in logs.
+
+---
+
+## 9. Security & Confidentiality
+- **Never commit** sensitive credentials or tokens to version control.
+- Follow **best practices** for managing secrets (environment variables, encrypted storage, etc.).
+
+---
+
+## 10. Continuous Improvement
+- If you find areas to enhance the process (branching, commit frequency, testing), **create a Kanban task** to discuss.
+- Document **suggestions** for improvements and potential **implementation steps**.
+
+
