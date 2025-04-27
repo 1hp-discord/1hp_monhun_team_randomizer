@@ -2,6 +2,16 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TeamMember, weapons, roles, platforms } from '../types';
 
 interface HunterFormProps {
@@ -30,74 +40,102 @@ export function HunterForm({ onAddHunter }: HunterFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 mb-6">
-      <div>
-        <label className="block text-sm font-medium mb-1">Hunter Name</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          className="w-full px-3 py-2 border rounded-md bg-background"
-          placeholder="Enter hunter name"
-        />
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">Weapon</label>
-          <select
-            value={weapon}
-            onChange={(e) => setWeapon(e.target.value)}
-            className="w-full px-3 py-2 border rounded-md bg-background"
-          >
-            {weapons.map((w) => (
-              <option key={w} value={w}>{w}</option>
-            ))}
-          </select>
-        </div>
-        
-        <div>
-          <label className="block text-sm font-medium mb-1">Role</label>
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            className="w-full px-3 py-2 border rounded-md bg-background"
-          >
-            {roles.map((r) => (
-              <option key={r} value={r}>{r}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">Platform</label>
-          <select
-            value={platform}
-            onChange={(e) => setPlatform(e.target.value as 'PC' | 'Console')}
-            className="w-full px-3 py-2 border rounded-md bg-background"
-          >
-            {platforms.map((p) => (
-              <option key={p} value={p}>{p}</option>
-            ))}
-          </select>
-        </div>
-        
-        <div className="flex items-center mt-7">
-          <input
-            type="checkbox"
-            checked={canRecord}
-            onChange={(e) => setCanRecord(e.target.checked)}
-            className="h-4 w-4 mr-2"
-            id="can-record"
-          />
-          <label htmlFor="can-record">Can Record Gameplay</label>
-        </div>
-      </div>
-      
-      <Button type="submit" className="w-full">Add Hunter</Button>
-    </form>
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          <span className="mr-2">⚔️</span>
+          Hunter Registration
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[#f9d877]" htmlFor="hunter-name">
+              Hunter Name
+            </label>
+            <Input
+              id="hunter-name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              placeholder="Enter hunter name"
+            />
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-[#f9d877]">Weapon</label>
+              <Select value={weapon} onValueChange={setWeapon}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a weapon" />
+                </SelectTrigger>
+                <SelectContent>
+                  {weapons.map((w) => (
+                    <SelectItem key={w} value={w}>
+                      {w}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-[#f9d877]">Role</label>
+              <Select value={role} onValueChange={setRole}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a role" />
+                </SelectTrigger>
+                <SelectContent>
+                  {roles.map((r) => (
+                    <SelectItem key={r} value={r}>
+                      {r}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-[#f9d877]">Platform</label>
+              <Select 
+                value={platform} 
+                onValueChange={(value) => setPlatform(value as 'PC' | 'Console')}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a platform" />
+                </SelectTrigger>
+                <SelectContent>
+                  {platforms.map((p) => (
+                    <SelectItem key={p} value={p}>
+                      {p}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="flex items-center space-x-2 h-full pt-8">
+              <Checkbox 
+                id="can-record"
+                checked={canRecord}
+                onCheckedChange={(checked) => setCanRecord(checked === true)}
+              />
+              <label
+                htmlFor="can-record"
+                className="text-sm font-medium leading-none"
+              >
+                Can Record Gameplay
+              </label>
+            </div>
+          </div>
+          
+          <Button type="submit" className="w-full">
+            Add Hunter
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
   );
 } 

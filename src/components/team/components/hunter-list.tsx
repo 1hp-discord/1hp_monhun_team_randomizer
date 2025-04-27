@@ -2,6 +2,9 @@
 
 import { TeamMember } from '../types';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { X } from 'lucide-react';
 
 interface HunterListProps {
   hunters: TeamMember[];
@@ -14,41 +17,51 @@ export function HunterList({ hunters, onRemoveHunter }: HunterListProps) {
   }
 
   return (
-    <div className="mb-6">
-      <h3 className="text-xl mb-2">Registered Hunters ({hunters.length}):</h3>
-      <div className="bg-muted p-4 rounded space-y-2">
-        {hunters.map(hunter => (
-          <div key={hunter.id} className="flex justify-between items-center bg-background p-3 rounded">
-            <div>
-              <span className="font-medium">{hunter.name}</span>
+    <Card className="mb-6">
+      <CardHeader>
+        <CardTitle>
+          <span className="mr-2">📜</span>
+          Registered Hunters ({hunters.length})
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-2">
+          {hunters.map(hunter => (
+            <div 
+              key={hunter.id} 
+              className="flex justify-between items-center p-3 rounded border border-[#b38a49] bg-[#2a2319]"
+            >
+              <div>
+                <span className="font-medium">{hunter.name}</span>
+              </div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <Badge variant="weapon">
+                  {hunter.weapon}
+                </Badge>
+                <Badge variant="role">
+                  {hunter.role}
+                </Badge>
+                <Badge variant="platform">
+                  {hunter.platform}
+                </Badge>
+                {hunter.canRecord && (
+                  <Badge variant="record">
+                    Can Record
+                  </Badge>
+                )}
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => onRemoveHunter(hunter.id)}
+                  className="text-[#e65a5a] hover:text-[#ff7070] h-8 w-8 p-0 ml-2 hover:bg-[#3d2424]"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-xs rounded-full">
-                {hunter.weapon}
-              </span>
-              <span className="px-2 py-1 bg-amber-100 dark:bg-amber-900 text-xs rounded-full">
-                {hunter.role}
-              </span>
-              <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-xs rounded-full">
-                {hunter.platform}
-              </span>
-              {hunter.canRecord && (
-                <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-xs rounded-full">
-                  Can Record
-                </span>
-              )}
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={() => onRemoveHunter(hunter.id)}
-                className="text-red-500 h-8 w-8 p-0"
-              >
-                ✕
-              </Button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   );
 } 

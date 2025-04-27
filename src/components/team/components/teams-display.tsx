@@ -1,6 +1,10 @@
 'use client';
 
 import { TeamMember } from '../types';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 interface TeamsDisplayProps {
   teams: TeamMember[][];
@@ -10,55 +14,72 @@ interface TeamsDisplayProps {
 export function TeamsDisplay({ teams, mounted }: TeamsDisplayProps) {
   return (
     <div className="mt-6">
-      <h3 className="text-xl mb-2">Generated Teams:</h3>
-      <div className="bg-muted p-4 rounded min-h-[50px]">
+      <h3 className="text-xl mb-2 text-[#f9d877] font-medium">Generated Teams:</h3>
+      <div className="border-2 border-[#b38a49] p-4 rounded min-h-[50px]">
         {teams.length > 0 ? (
           <div className="space-y-6">
             {teams.map((team, index) => (
-              <div key={index} className="bg-background p-4 rounded-lg">
-                <h4 className="font-semibold text-lg mb-2">Team {index + 1}</h4>
-                <div className="space-y-2">
-                  {team.map(member => (
-                    <div key={member.id} className="flex justify-between items-center p-2 border-b last:border-0">
-                      <div>
-                        <span className="font-medium">{member.name}</span>
-                      </div>
-                      <div className="flex items-center gap-2 flex-wrap justify-end">
-                        <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-xs rounded-full">
-                          {member.weapon}
-                        </span>
-                        <span className="px-2 py-1 bg-amber-100 dark:bg-amber-900 text-xs rounded-full">
-                          {member.role}
-                        </span>
-                        <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-xs rounded-full">
-                          {member.platform}
-                        </span>
-                        {member.canRecord && (
-                          <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-xs rounded-full">
-                            Can Record
-                          </span>
-                        )}
-                      </div>
+              <Card key={index}>
+                <CardHeader>
+                  <CardTitle>
+                    <div className="flex items-center">
+                      <span className="bg-[#b38a49] text-black rounded-full w-6 h-6 flex items-center justify-center mr-2 text-sm">{index + 1}</span>
+                      Team {index + 1}
                     </div>
-                  ))}
-                </div>
-                {/* Display team recording capability */}
-                <div className="mt-2 text-sm">
-                  {team.some(member => member.canRecord) ? (
-                    <span className="text-green-600 dark:text-green-400 font-medium">
-                      ✓ This team has recording capability
-                    </span>
-                  ) : (
-                    <span className="text-amber-600 dark:text-amber-400 font-medium">
-                      ⚠ No recording capability
-                    </span>
-                  )}
-                </div>
-              </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {team.map(member => (
+                      <div key={member.id} className="flex justify-between items-center p-2 border-b border-[#3d3424] last:border-0">
+                        <div>
+                          <span className="font-medium">{member.name}</span>
+                        </div>
+                        <div className="flex items-center gap-2 flex-wrap justify-end">
+                          <Badge variant="weapon">
+                            {member.weapon}
+                          </Badge>
+                          <Badge variant="role">
+                            {member.role}
+                          </Badge>
+                          <Badge variant="platform">
+                            {member.platform}
+                          </Badge>
+                          {member.canRecord && (
+                            <Badge variant="record">
+                              Can Record
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Display team recording capability */}
+                  <div className="mt-4">
+                    {team.some(member => member.canRecord) ? (
+                      <Alert variant="recording">
+                        <CheckCircle2 className="h-4 w-4" />
+                        <AlertTitle className="font-bold">Recording Ready</AlertTitle>
+                        <AlertDescription>
+                          This team has recording capability
+                        </AlertDescription>
+                      </Alert>
+                    ) : (
+                      <Alert variant="norecording">
+                        <AlertTriangle className="h-4 w-4" />
+                        <AlertTitle className="font-bold">No Recording</AlertTitle>
+                        <AlertDescription>
+                          This team doesn't have recording capability
+                        </AlertDescription>
+                      </Alert>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         ) : (
-          <p>{mounted ? 'Click the button above to generate your teams' : ''}</p>
+          <p className="text-[#8a7b65] text-center p-4">{mounted ? 'Click the button above to generate your teams' : ''}</p>
         )}
       </div>
     </div>

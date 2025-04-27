@@ -52,11 +52,11 @@ export function TeamGenerator() {
         <HunterForm onAddHunter={addHunter} />
       </section>
       
-      <section>
+      <section className="pt-6">
         <HunterList hunters={hunters} onRemoveHunter={removeHunter} />
       </section>
       
-      <section className="border-t pt-6">
+      <section className="pt-6">
         <h2 className="text-2xl font-semibold mb-4">1HP Squad Challenge</h2>
         <p className="mb-6">
           Generate optimized teams that maximize recording coverage. The algorithm pairs non-recorders with recorders when possible.
