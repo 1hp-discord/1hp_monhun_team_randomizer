@@ -46,9 +46,8 @@ export function TeamGenerator() {
   };
   
   return (
-    <div className="bg-card p-6 rounded-lg shadow-lg w-full">
+    <div className="bg-[#1a1a1a] p-6 rounded-lg shadow-lg w-full">
       <section>
-        <h2 className="text-2xl font-semibold mb-4">Hunter Registration</h2>
         <HunterForm onAddHunter={addHunter} />
       </section>
       
@@ -57,17 +56,20 @@ export function TeamGenerator() {
       </section>
       
       <section className="pt-6">
-        <h2 className="text-2xl font-semibold mb-4">1HP Squad Challenge</h2>
-        <p className="mb-6">
+        <h2 className="text-2xl font-medium text-[#f9d877] mb-4 flex items-center">
+          <span className="bg-[#b38a49] text-black rounded-full w-7 h-7 flex items-center justify-center mr-2 text-sm">📋</span>
+          1HP Squad Challenge
+        </h2>
+        <p className="mb-6 text-[#e6d2a8]">
           Generate optimized teams that maximize recording coverage. The algorithm pairs non-recorders with recorders when possible.
         </p>
         
         <div className="flex flex-col space-y-4">
           <Button 
-            variant="destructive" 
             size="lg"
             onClick={generateRandomTeam}
             disabled={!mounted || hunters.length === 0}
+            className="bg-[#b38a49] text-black hover:bg-[#d4a85a] border border-[#f9d877]"
           >
             Generate Teams
           </Button>

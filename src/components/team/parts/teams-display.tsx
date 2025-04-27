@@ -15,7 +15,7 @@ export function TeamsDisplay({ teams, mounted }: TeamsDisplayProps) {
   return (
     <div className="mt-6">
       <h3 className="text-xl mb-2 text-[#f9d877] font-medium">Generated Teams:</h3>
-      <div className="border-2 border-[#b38a49] p-4 rounded min-h-[50px]">
+      <div className="border-2 border-[#b38a49] bg-[#2a2319] p-4 rounded min-h-[50px]">
         {teams.length > 0 ? (
           <div className="space-y-6">
             {teams.map((team, index) => (
