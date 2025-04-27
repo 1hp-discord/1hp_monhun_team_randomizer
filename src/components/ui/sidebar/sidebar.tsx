@@ -5,7 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { 
+  Sheet, 
+  SheetContent, 
+  SheetTrigger,
+  SheetTitle 
+} from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import routes from './routes';
 
@@ -41,7 +46,9 @@ export function Sidebar() {
                   className="h-auto"
                 />
               </div>
-              <h2 className="text-lg font-semibold text-center">Monster Hunter Team Randomizer</h2>
+              <SheetTitle className="text-lg font-semibold text-center">
+                Monster Hunter Team Randomizer
+              </SheetTitle>
             </div>
             <nav className="flex-1 overflow-auto p-4">
               <div className="space-y-1">
