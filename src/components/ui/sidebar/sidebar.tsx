@@ -47,7 +47,7 @@ export function Sidebar() {
                 />
               </div>
               <SheetTitle className="text-lg font-semibold text-center">
-                1HP Squad Randomizer
+                Monster Hunter Assistant
               </SheetTitle>
             </div>
             <nav className="flex-1 overflow-auto p-4">
@@ -88,7 +88,7 @@ export function Sidebar() {
               className="h-auto"
             />
           </div>
-          <h2 className="text-lg font-semibold text-center">1HP Squad Randomizer</h2>
+          <h2 className="text-lg font-semibold text-center">Monster Hunter Assistant</h2>
         </div>
         <nav className="flex-1 overflow-auto p-4">
           <div className="space-y-1">

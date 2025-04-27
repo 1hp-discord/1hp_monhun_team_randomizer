@@ -10,20 +10,18 @@ export default function RulesPage() {
                         The 1HP Challenge is a self-imposed set of rules to make Monster Hunter more challenging:
                     </p>
                     
-                    <div className="space-y-4">
+                    <div className="space-y-4 ml-10">
                         <div>
-                            <h3 className="text-xl font-medium">Rule 1: One Hit Point</h3>
-                            <p>All hunters must use armor that results in exactly 1 HP.</p>
+                            <h3 className="text-xl font-medium"><u>Rule 1</u>: Team Coordination</h3>
+                            <p>Your team composition is randomly assigned, requiring adaptation to unfamiliar partners.</p>
                         </div>
-                        
                         <div>
-                            <h3 className="text-xl font-medium">Rule 2: No Healing</h3>
-                            <p>No potions, lifepowders, or other healing items are allowed.</p>
+                            <h3 className="text-xl font-medium"><u>Rule 2</u>: Recording</h3>
+                            <p>You must record your hunts and share your team compositions.</p>
                         </div>
-                        
                         <div>
-                            <h3 className="text-xl font-medium">Rule 3: Team Coordination</h3>
-                            <p>Your team composition is randomly assigned, requiring adaptation to unfamiliar weapons.</p>
+                            <h3 className="text-xl font-medium"><u>Rule 3</u>: Max 2 Players per Team</h3>
+                            <p>You must play with max 1 other player for the AT Rey Dau event.</p>
                         </div>
                     </div>
                 </div>
