@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { TeamMember } from '../types';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { AlertTriangle, CheckCircle2, ClipboardCopy, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -146,7 +146,7 @@ export function TeamsDisplay({ teams, mounted }: TeamsDisplayProps) {
                         <AlertTriangle className="h-4 w-4" />
                         <AlertTitle className="font-bold">No Recording</AlertTitle>
                         <AlertDescription>
-                          This team doesn't have recording capability
+                          This team doesn&apos;t have recording capability
                         </AlertDescription>
                       </Alert>
                     )}

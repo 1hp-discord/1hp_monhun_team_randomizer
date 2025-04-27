@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, Sword, Shield, ScrollText, Home } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { 
   Sheet, 
   SheetContent, 

@@ -1,7 +1,6 @@
 'use client';
 
 import { HeroBanner } from '@/components/hero/hero-banner';
-import { TeamGenerator } from '@/components/team/team-generator';
 import { EventList } from '@/components/events/event-list';
 import { Card, CardContent } from '@/components/ui/card';
 

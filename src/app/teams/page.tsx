@@ -24,7 +24,7 @@ export default function TeamsPage() {
                             <li>Add all participating hunters to the registration</li>
                             <li>Specify weapon type, role and platform for each</li>
                             <li>Mark hunters who can record gameplay</li>
-                            <li>Click "Generate Teams" to create random balanced teams</li>
+                            <li>Click &quot;Generate Teams&quot; to create random balanced teams</li>
                         </ul>
                         
                         <TeamGenerator />

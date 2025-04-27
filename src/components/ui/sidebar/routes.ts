@@ -1,19 +1,21 @@
-import { Home, Book, Users } from "lucide-react";
+import { Home, Swords, ScrollText } from 'lucide-react';
 
-export default [
+const routes = [
     {
         label: "Home",
         href: "/",
         icon: Home,
     },
     {
-        label: "Rules",
-        href: "/rules",
-        icon: Book,
-    },
-    {
         label: "Teams",
         href: "/teams",
-        icon: Users,
+        icon: Swords,
+    },
+    {
+        label: "Rules",
+        href: "/rules",
+        icon: ScrollText,
     },    
 ]
+
+export default routes;
