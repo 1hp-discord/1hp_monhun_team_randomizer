@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { TeamMember } from './types';
-import { HunterForm } from './components/hunter-form';
-import { HunterList } from './components/hunter-list';
-import { TeamsDisplay } from './components/teams-display';
+import { HunterForm } from './parts/hunter-form';
+import { HunterList } from './parts/hunter-list';
+import { TeamsDisplay } from './parts/teams-display';
 import { createOptimalTeams, generateRandomHunters } from './utils/team-generator';
 
 export function TeamGenerator() {

@@ -16,7 +16,7 @@ function ClientOnlyFormattedDate({ date }: { date: string }) {
     setFormattedDate(format(parseISO(date), 'MMMM dd, yyyy'));
   }, [date]);
 
-  return <span className="font-semibold">{formattedDate}</span>;
+  return <span className="font-semibold text-[#f9d877]">{formattedDate}</span>;
 }
 
 export function EventList({ limit = 3 }: EventListProps) {
@@ -29,12 +29,9 @@ export function EventList({ limit = 3 }: EventListProps) {
   
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-semibold mb-4">Upcoming Events</h2>
-      <div className="space-y-3">
-        {events.map((event) => (
-          <EventCard key={event.id} event={event} mounted={mounted} />
-        ))}
-      </div>
+      {events.map((event) => (
+        <EventCard key={event.id} event={event} mounted={mounted} />
+      ))}
     </div>
   );
 }
@@ -42,26 +39,59 @@ export function EventList({ limit = 3 }: EventListProps) {
 function EventCard({ event, mounted }: { event: Event; mounted: boolean }) {
   const Icon = event.icon;
   
-  // Different background colors based on event type
-  const getBgColor = () => {
+  // Monster Hunter themed event types
+  const getEventStyle = () => {
     switch(event.type) {
-      case 'hunt': return 'bg-blue-100 dark:bg-blue-950 border-blue-200 dark:border-blue-900';
-      case 'tournament': return 'bg-amber-100 dark:bg-amber-950 border-amber-200 dark:border-amber-900';
-      case 'special': return 'bg-purple-100 dark:bg-purple-950 border-purple-200 dark:border-purple-900';
-      default: return 'bg-card';
+      case 'hunt': 
+        return {
+          border: 'border-[#5177a6]',
+          badge: 'bg-[#2e3d59] text-[#a8c7e6]',
+          icon: 'bg-[#2a2319] border-[#5177a6]'
+        };
+      case 'tournament': 
+        return {
+          border: 'border-[#a69c51]',
+          badge: 'bg-[#594e2e] text-[#e6d7a8]',
+          icon: 'bg-[#2a2319] border-[#a69c51]'
+        };
+      case 'special': 
+        return {
+          border: 'border-[#a651a6]',
+          badge: 'bg-[#592e59] text-[#e6a8e6]',
+          icon: 'bg-[#2a2319] border-[#a651a6]'
+        };
+      default: 
+        return {
+          border: 'border-[#b38a49]',
+          badge: 'bg-[#3d3424] text-[#e6d2a8]',
+          icon: 'bg-[#2a2319] border-[#b38a49]'
+        };
     }
   };
   
+  const style = getEventStyle();
+  
   return (
-    <div className={`p-4 rounded-lg border ${getBgColor()} transition-all hover:shadow-md`}>
+    <div className={`p-4 rounded-lg border-2 ${style.border} bg-[#2a2319] transition-all hover:shadow-md`}>
       <div className="flex items-start gap-3">
-        <div className="p-2 bg-background rounded-full shrink-0">
+        <div className={`p-2 rounded-full shrink-0 border ${style.icon} text-[#f9d877]`}>
           <Icon className="h-5 w-5" />
         </div>
         <div className="flex-1">
-          <h3 className="font-medium">{event.title}</h3>
-          <p className="text-sm text-muted-foreground mb-2">{event.description}</p>
-          <div className="text-sm">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="font-medium text-[#f9d877]">{event.title}</h3>
+            <span className={`text-xs px-2 py-0.5 rounded-full ${style.badge}`}>
+              {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
+            </span>
+          </div>
+          <p className="text-sm text-[#e6d2a8] mb-2">{event.description}</p>
+          <div className="text-sm flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 mr-1 text-[#b38a49]">
+              <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+              <line x1="16" x2="16" y1="2" y2="6" />
+              <line x1="8" x2="8" y1="2" y2="6" />
+              <line x1="3" x2="21" y1="10" y2="10" />
+            </svg>
             {mounted ? (
               <ClientOnlyFormattedDate date={event.date} />
             ) : (

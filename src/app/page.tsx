@@ -14,7 +14,7 @@ export default function Home() {
           subtitle="Generate random teams, follow events, and join the hunt!"
         />
         
-        <div className="mt-8 border-t-2 border-[#b38a49] pt-8">
+        <div className="mt-8 pt-4">
           <h2 className="text-2xl font-medium text-[#f9d877] mb-6 flex items-center">
             <span className="mr-3 bg-[#b38a49] text-black rounded-full w-8 h-8 flex items-center justify-center">🔥</span>
             Upcoming Events
