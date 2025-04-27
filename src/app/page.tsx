@@ -1,8 +1,8 @@
 'use client';
 
-import { HeroBanner } from '@/components/ui/hero/hero-banner';
-import { TeamGenerator } from '@/components/ui/team/team-generator';
-import { EventList } from '@/components/ui/events/event-list';
+import { HeroBanner } from '@/components/hero/hero-banner';
+import { TeamGenerator } from '@/components/team/team-generator';
+import { EventList } from '@/components/events/event-list';
 
 export default function Home() {
   return (
