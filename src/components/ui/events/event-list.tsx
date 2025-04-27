@@ -26,7 +26,6 @@ function EventCard({ event }: { event: Event }) {
   const Icon = event.icon;
   const eventDate = new Date(event.date);
   const formattedDate = format(eventDate, 'MMMM dd, yyyy');
-  const formattedTime = format(eventDate, 'h:mm a');
   
   // Different background colors based on event type
   const getBgColor = () => {
@@ -47,10 +46,8 @@ function EventCard({ event }: { event: Event }) {
         <div className="flex-1">
           <h3 className="font-medium">{event.title}</h3>
           <p className="text-sm text-muted-foreground mb-2">{event.description}</p>
-          <div className="flex items-center gap-2 text-sm">
+          <div className="text-sm">
             <span className="font-semibold">{formattedDate}</span>
-            <span>at</span>
-            <span>{formattedTime}</span>
           </div>
         </div>
       </div>
