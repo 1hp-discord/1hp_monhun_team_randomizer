@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 
 interface TeamMember {
@@ -33,12 +33,27 @@ const roles = [
   'Crowd Control'
 ];
 
+// Ensure this function is deterministic by using seeded shuffling if needed
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+};
+
 export function TeamGenerator() {
   const [team, setTeam] = useState<TeamMember[]>([]);
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   
   const generateRandomTeam = () => {
-    const shuffledWeapons = [...weapons].sort(() => 0.5 - Math.random());
-    const shuffledRoles = [...roles].sort(() => 0.5 - Math.random());
+    const shuffledWeapons = shuffleArray(weapons);
+    const shuffledRoles = shuffleArray(roles);
     
     const newTeam = Array.from({ length: 4 }, (_, i) => ({
       id: i + 1,
@@ -62,6 +77,7 @@ export function TeamGenerator() {
           variant="destructive" 
           size="lg"
           onClick={generateRandomTeam}
+          disabled={!isClient}
         >
           Generate Random Team
         </Button>
@@ -69,7 +85,9 @@ export function TeamGenerator() {
         <div className="mt-6">
           <h3 className="text-xl mb-2">Your Team:</h3>
           <div className="bg-muted p-4 rounded">
-            {team.length > 0 ? (
+            {!isClient ? (
+              <p>Loading team generator...</p>
+            ) : team.length > 0 ? (
               <div className="space-y-2">
                 {team.map(member => (
                   <div key={member.id} className="flex justify-between items-center bg-background p-3 rounded">

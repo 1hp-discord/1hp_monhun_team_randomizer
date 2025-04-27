@@ -1,14 +1,35 @@
 'use client';
 
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { Event, upcomingEvents } from './events';
+import { useEffect, useState } from 'react';
 
 interface EventListProps {
   limit?: number;
 }
 
 export function EventList({ limit = 3 }: EventListProps) {
+  // Use client-side rendering to avoid hydration mismatch
+  const [isClient, setIsClient] = useState(false);
   const events = limit ? upcomingEvents.slice(0, limit) : upcomingEvents;
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
+  if (!isClient) {
+    // Simple loading state until client-side rendering takes over
+    return (
+      <div className="space-y-4">
+        <h2 className="text-2xl font-semibold mb-4">Upcoming Events</h2>
+        <div className="space-y-3">
+          {events.map((event) => (
+            <div key={event.id} className="p-4 rounded-lg border bg-card h-24 animate-pulse" />
+          ))}
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className="space-y-4">
@@ -24,7 +45,8 @@ export function EventList({ limit = 3 }: EventListProps) {
 
 function EventCard({ event }: { event: Event }) {
   const Icon = event.icon;
-  const eventDate = new Date(event.date);
+  // Use parseISO to ensure consistent date parsing
+  const eventDate = parseISO(event.date);
   const formattedDate = format(eventDate, 'MMMM dd, yyyy');
   
   // Different background colors based on event type
