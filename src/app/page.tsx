@@ -1,29 +1,23 @@
-import { Button } from '@/components/ui/button';
+import { HeroBanner } from '@/components/ui/hero/hero-banner';
+import { TeamGenerator } from '@/components/ui/team/team-generator';
+import { EventList } from '@/components/ui/events/event-list';
 
 export default function Home() {
   return (
     <div className="p-6 md:p-10">
       <div className="mx-auto max-w-4xl">
-        <h1 className="text-4xl font-bold mb-8">Monster Hunter Team Randomizer</h1>
+        <HeroBanner 
+          title="1HP Monster Hunter Team Randomizer" 
+          subtitle="Generate random teams, follow events, and join the hunt!"
+        />
         
-        <div className="bg-card p-6 rounded-lg shadow-lg w-full">
-          <h2 className="text-2xl font-semibold mb-4">1HP Squad Challenge</h2>
-          <p className="mb-6">
-            Generate random team compositions for your Monster Hunter hunts. Challenge yourself 
-            with the 1HP Squad rules - can you survive with just one hit point?
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+          <div className="lg:col-span-3">
+            <TeamGenerator />
+          </div>
           
-          <div className="flex flex-col space-y-4">
-            <Button variant="destructive" size="lg">
-              Generate Random Team
-            </Button>
-            
-            <div className="mt-6">
-              <h3 className="text-xl mb-2">Your Team:</h3>
-              <div className="bg-muted p-4 rounded">
-                <p>Click the button above to generate your team</p>
-              </div>
-            </div>
+          <div className="lg:col-span-2">
+            <EventList limit={3} />
           </div>
         </div>
       </div>
