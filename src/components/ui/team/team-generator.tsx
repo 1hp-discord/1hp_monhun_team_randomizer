@@ -9,6 +9,7 @@ interface TeamMember {
   role: string;
 }
 
+// Define weapons and roles as constants, which won't cause hydration mismatches
 const weapons = [
   'Great Sword',
   'Long Sword',
@@ -33,7 +34,7 @@ const roles = [
   'Crowd Control'
 ];
 
-// Ensure this function is deterministic by using seeded shuffling if needed
+// Ensure random operations only happen on the client
 const shuffleArray = <T,>(array: T[]): T[] => {
   const newArray = [...array];
   for (let i = newArray.length - 1; i > 0; i--) {
@@ -45,10 +46,10 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 
 export function TeamGenerator() {
   const [team, setTeam] = useState<TeamMember[]>([]);
-  const [isClient, setIsClient] = useState(false);
+  const [mounted, setMounted] = useState(false);
   
   useEffect(() => {
-    setIsClient(true);
+    setMounted(true);
   }, []);
   
   const generateRandomTeam = () => {
@@ -73,21 +74,20 @@ export function TeamGenerator() {
       </p>
       
       <div className="flex flex-col space-y-4">
+        {/* Only enable the button once client-side JS is available */}
         <Button 
           variant="destructive" 
           size="lg"
           onClick={generateRandomTeam}
-          disabled={!isClient}
+          disabled={!mounted}
         >
           Generate Random Team
         </Button>
         
         <div className="mt-6">
           <h3 className="text-xl mb-2">Your Team:</h3>
-          <div className="bg-muted p-4 rounded">
-            {!isClient ? (
-              <p>Loading team generator...</p>
-            ) : team.length > 0 ? (
+          <div className="bg-muted p-4 rounded min-h-[50px]">
+            {team.length > 0 ? (
               <div className="space-y-2">
                 {team.map(member => (
                   <div key={member.id} className="flex justify-between items-center bg-background p-3 rounded">
@@ -106,7 +106,7 @@ export function TeamGenerator() {
                 ))}
               </div>
             ) : (
-              <p>Click the button above to generate your team</p>
+              <p>{mounted ? 'Click the button above to generate your team' : ''}</p>
             )}
           </div>
         </div>

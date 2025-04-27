@@ -8,46 +8,39 @@ interface EventListProps {
   limit?: number;
 }
 
+// This helper component handles date formatting only on the client
+function ClientOnlyFormattedDate({ date }: { date: string }) {
+  const [formattedDate, setFormattedDate] = useState<string>('');
+
+  useEffect(() => {
+    setFormattedDate(format(parseISO(date), 'MMMM dd, yyyy'));
+  }, [date]);
+
+  return <span className="font-semibold">{formattedDate}</span>;
+}
+
 export function EventList({ limit = 3 }: EventListProps) {
-  // Use client-side rendering to avoid hydration mismatch
-  const [isClient, setIsClient] = useState(false);
   const events = limit ? upcomingEvents.slice(0, limit) : upcomingEvents;
+  const [mounted, setMounted] = useState(false);
   
   useEffect(() => {
-    setIsClient(true);
+    setMounted(true);
   }, []);
-  
-  if (!isClient) {
-    // Simple loading state until client-side rendering takes over
-    return (
-      <div className="space-y-4">
-        <h2 className="text-2xl font-semibold mb-4">Upcoming Events</h2>
-        <div className="space-y-3">
-          {events.map((event) => (
-            <div key={event.id} className="p-4 rounded-lg border bg-card h-24 animate-pulse" />
-          ))}
-        </div>
-      </div>
-    );
-  }
   
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-semibold mb-4">Upcoming Events</h2>
       <div className="space-y-3">
         {events.map((event) => (
-          <EventCard key={event.id} event={event} />
+          <EventCard key={event.id} event={event} mounted={mounted} />
         ))}
       </div>
     </div>
   );
 }
 
-function EventCard({ event }: { event: Event }) {
+function EventCard({ event, mounted }: { event: Event; mounted: boolean }) {
   const Icon = event.icon;
-  // Use parseISO to ensure consistent date parsing
-  const eventDate = parseISO(event.date);
-  const formattedDate = format(eventDate, 'MMMM dd, yyyy');
   
   // Different background colors based on event type
   const getBgColor = () => {
@@ -69,7 +62,11 @@ function EventCard({ event }: { event: Event }) {
           <h3 className="font-medium">{event.title}</h3>
           <p className="text-sm text-muted-foreground mb-2">{event.description}</p>
           <div className="text-sm">
-            <span className="font-semibold">{formattedDate}</span>
+            {mounted ? (
+              <ClientOnlyFormattedDate date={event.date} />
+            ) : (
+              <span className="font-semibold opacity-0">Date Loading</span>
+            )}
           </div>
         </div>
       </div>
